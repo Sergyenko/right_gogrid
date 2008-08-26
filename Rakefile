@@ -13,7 +13,7 @@ Hoe.new('right_gogrid', RightGogrid::VERSION) do |p|
   p.url = p.paragraphs_of('README.txt', 0).first.split(/\n/)[1..-1]
   p.changes = p.paragraphs_of('History.txt', 0..1).join("\n\n")
   p.remote_rdoc_dir = "/right_gogrid_gem_doc"
-  p.extra_deps = []
+  p.extra_deps = [['right_http_connection','>= 1.2.1']]
 end
 
 # vim: syntax=Ruby
