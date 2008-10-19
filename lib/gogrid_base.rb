@@ -31,7 +31,7 @@ module Rightscale
   end
 
   module RightGogridInterface
-    DEFAULT_GOGRID_URL = 'http://api.gogrid.com/api'
+    DEFAULT_GOGRID_URL = 'https://api.gogrid.com/api'
     DEFAULT_VERSION    = '1.0'
     DEFAULT_FORMAT     = 'json'
 
@@ -50,9 +50,9 @@ module Rightscale
                         'InsufficientInstanceCapacity'
                        ]
     @@gogrid_problems = GOGRID_PROBLEMS
-      # Returns a list of Amazon service responses which are known to be transient problems.
+      # Returns a list of Gogrid responses which are known to be transient problems.
       # We have to re-request if we get any of them, because the problem will probably disappear.
-      # By default this method returns the same value as the AMAZON_PROBLEMS const.
+      # By default this method returns the same value as the GOGRID_PROBLEMS const.
     def self.gogrid_problems
       @@gogrid_problems
     end
@@ -130,7 +130,7 @@ module Rightscale
     # Helpers
     # --------
 
-      # Return +true+ if this instance works in multi_thread mode and +false+ otherwise.
+    # Return +true+ if this instance works in multi_thread mode and +false+ otherwise.
     def multi_thread
       @params[:multi_thread]
     end
@@ -226,7 +226,7 @@ module Rightscale
     # Perform a request.
     # Skips a response parsing if caching is used.
     def request_cache_or_info(method, request_hash, parser_class, use_cache=true) #:nodoc:
-      # We do not want to break the logic of parsing hence will use a dummy parser to process all the standart
+      # We do not want to break the logic of parsing hence will use a dummy parser to process all the standard
       # steps (errors checking etc). The dummy parser does nothig - just returns back the params it received.
       # If the caching is enabled and hit then throw  GogridNoChange.
       # P.S. caching works for the whole images list only! (when the list param is blank)
