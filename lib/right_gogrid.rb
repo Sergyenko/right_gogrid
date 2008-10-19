@@ -98,7 +98,7 @@ module Rightscale
     #
     def list_images
       request_hash = generate_request("grid/image/list")
-      request_cache_or_info(:gogrid_image_list, request_hash, GogridJsonParser)
+      request_cache_or_info(:list_images, request_hash, GogridJsonParser)
     rescue
       on_exception
     end
@@ -172,7 +172,7 @@ module Rightscale
       opts = {}
       opts["server.type"] = server_type if server_type
       request_hash = generate_request("grid/server/list", opts)
-      request_cache_or_info(:gogrid_server_list, request_hash, GogridJsonParser, !server_type)
+      request_cache_or_info(:list_servers, request_hash, GogridJsonParser, !server_type)
     rescue
       on_exception
     end
@@ -452,7 +452,7 @@ module Rightscale
       opts["ip.state"] = state if state
       opts["ip.type"]  = type  if type
       request_hash = generate_request("grid/ip/list", opts)
-      request_cache_or_info(:gogrid_ip_list, request_hash, GogridJsonParser, !(state || type))
+      request_cache_or_info(:list_ips, request_hash, GogridJsonParser, !(state || type))
     rescue
       on_exception
     end
@@ -492,7 +492,7 @@ module Rightscale
     #
     def list_support_passwords
       request_hash = generate_request("support/password/list")
-      request_cache_or_info(:support_password_list, request_hash, GogridJsonParser)
+      request_cache_or_info(:list_support_passwords, request_hash, GogridJsonParser)
     rescue
       on_exception
     end
@@ -622,7 +622,7 @@ module Rightscale
     #
     def list_loadbalancers
       request_hash = generate_request("grid/loadbalancer/list")
-      request_cache_or_info(:gogrid_loadbalancer_list, request_hash, GogridJsonParser)
+      request_cache_or_info(:list_loadbalancers, request_hash, GogridJsonParser)
     rescue
       on_exception
     end
