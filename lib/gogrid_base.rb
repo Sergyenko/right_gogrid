@@ -16,7 +16,7 @@ module Rightscale
 
   class GogridJsonParser
     def parse(response)
-      json = JSON.load(response.body)
+      json = JSON.parse(response.body)
       raise GogridError.new("Unsuccessful JSON response: #{json.inspect}") unless json["status"] == "success"
       json['list']
     end
