@@ -281,8 +281,6 @@ module Rightscale
       (@cache[function.to_sym] ||= {}).merge!(hash) if caching?
     end
   end
-end
-
 
 
   # Exception class to signal any Amazon errors. All errors occuring during calls to Amazon's
@@ -468,5 +466,6 @@ end
       end
       result
     end
-
   end
+ 
+end
