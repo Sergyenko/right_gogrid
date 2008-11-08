@@ -21,11 +21,9 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 require 'cgi'
-#require 'net/http'
 require 'benchmark'
-require 'json'
 require 'md5'
-
+require 'active_support'
 require 'rubygems'
 require 'right_http_connection'
 
