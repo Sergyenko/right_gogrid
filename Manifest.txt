@@ -1,9 +1,0 @@
-History.txt
-Manifest.txt
-README.txt
-Rakefile
-lib/right_gogrid.rb
-lib/gogrid_base.rb
-lib/benchmark_fix.rb
-lib/support.rb
-test/test_right_gogrid.rb
