@@ -11,10 +11,10 @@ module Rightscale
     end
   end
 
-  class GogridNoChange < RuntimeError
+  class GogridNoChange < RuntimeError #:nodoc:
   end
 
-  class GogridJsonParser
+  class GogridJsonParser #:nodoc:
     def parse(response)
       json = ActiveSupport::JSON.decode(response.body)
       raise GogridError.new("Unsuccessful JSON response: #{json.inspect}") unless json["status"] == "success"
@@ -35,20 +35,20 @@ module Rightscale
     DEFAULT_VERSION    = '1.0'
     DEFAULT_FORMAT     = 'json'
 
-    # Text, if found in an error message returned by Gogrid, indicates that this may be a transient
+    # If found in an error message returned by Gogrid, these phrases indicate a transient
     # error. Transient errors are automatically retried with exponential back-off.
-    # TODO: gather Gogrid errors here
     GOGRID_PROBLEMS = [ #'Forbidden',
                         'internal service error',
                         'is currently unavailable',
                         'no response from',
                         'Please try again',
                         'InternalError',
-                        'ServiceUnavailable', #from SQS docs
+                        'ServiceUnavailable', 
                         'Unavailable',
                         'This application is not currently available',
                         'InsufficientInstanceCapacity'
                        ]
+    # TODO: gather more Gogrid errors here
     @@gogrid_problems = GOGRID_PROBLEMS
       # Returns a list of Gogrid responses which are known to be transient problems.
       # We have to re-request if we get any of them, because the problem will probably disappear.
@@ -73,10 +73,10 @@ module Rightscale
       @@bench.service
     end
 
-      # Current Gogrig API key
-    attr_reader :gogrig_api_key
-      # Current Gogrig secret key
-    attr_reader :gogrig_secret
+      # Current Gogrid API key
+    attr_reader :gogrid_api_key
+      # Current Gogrid secret key
+    attr_reader :gogrid_secret
       # Last HTTP request object
     attr_reader :last_request
       # Last HTTP response object
@@ -99,16 +99,16 @@ module Rightscale
     #   :logger
     #   :multi_thread
     #
-    def init(gogrig_api_key, gogrig_secret, params={}) #:nodoc:
+    def init(gogrid_api_key, gogrid_secret, params={}) #:nodoc:
       @params = params
       @cache  = {}
       @error_handler = nil
       # deny working without credentials
-      if gogrig_api_key.blank? || gogrig_secret.blank?
+      if gogrid_api_key.blank? || gogrid_secret.blank?
         raise GogridError.new("GoGrid api and secret keys are required to operate on GoGrid API service")
       end
-      @gogrid_api_key = gogrig_api_key
-      @gogrid_secret  = gogrig_secret
+      @gogrid_api_key = gogrid_api_key
+      @gogrid_secret  = gogrid_secret
       # parse Gogrid URL
       @params[:gogrid_url] ||= ENV['GOGRID_URL'] || DEFAULT_GOGRID_URL
       @params[:server]       = URI.parse(@params[:gogrid_url]).host
@@ -283,7 +283,7 @@ module Rightscale
   end
 
 
-  # Exception class to signal any Amazon errors. All errors occuring during calls to Amazon's
+  # Exception class to signal any GoGrid errors. All errors occuring during calls to GoGrid's
   # web services raise this type of error.
   # Attribute inherited by RuntimeError:
   #  message    - the text of the error
@@ -337,9 +337,9 @@ module Rightscale
       return nil
     end
 
-    # True if e is an AWS system error, i.e. something that is for sure not the caller's fault.
+    # True if e is an  system error, i.e. something that is for sure not the caller's fault.
     # Used to force logging.
-    # TODO: Place Gogrid Errors here
+    # TODO: Place Gogrid Errors here (present ones are AWS errors)
     def self.system_error?(e)
  	    !e.is_a?(self) || e.message =~ /InternalError|InsufficientInstanceCapacity|Unavailable/
     end
@@ -389,7 +389,7 @@ module Rightscale
     #  :close_on_4xx_probability = 1-100
     def initialize(gogrid, parser, params={}) #:nodoc:
       @gogrid        = gogrid           
-      @parser        = parser           # parser to parse Amazon response
+      @parser        = parser           
       @started_at    = Time.now
       @stop_at       = @started_at  + (params[:reiteration_time] || @@reiteration_time)
       @errors_list   = params[:errors_list] || []

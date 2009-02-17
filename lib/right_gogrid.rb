@@ -41,7 +41,7 @@ module RightGogrid
 end
 
 
-module Rightscale
+module Rightscale #:nodoc:
 
   class Gogrid
     include RightGogridInterface
