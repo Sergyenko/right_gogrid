@@ -1,4 +1,4 @@
-= RightScale GoGrid API Ruby Gems
+= RightScale GoGrid API Ruby Gem 
 
 Published by RightScale, Inc. under the MIT License.
 For information about RightScale, see http://www.rightscale.com
@@ -9,15 +9,15 @@ The RightScale GoGrid gem has been designed to provide a robust interface to GoG
 
 == FEATURES/PROBLEMS:
 
-* FIX (list of features or problems)
-
-== SYNOPSIS:
-
-  FIX (code sample of usage)
-
-== REQUIREMENTS:
-
-* FIX (list of requirements)
+- Full programmatic access to the GoGrid API.
+- Complete error handling: all operations check for errors and report complete
+  error information by raising a GoGridError.
+- Persistent HTTP connections with robust network-level retry layer using
+  RightHttpConnection).  This includes socket timeouts and retries.
+- Robust HTTP-level retry layer.  Certain (user-adjustable) HTTP errors returned
+  by GoGrid are classified as temporary errors.
+  These errors are automaticallly retried using exponentially increasing intervals.
+  The number of retries is user-configurable.
 
 == INSTALL:
 
@@ -25,7 +25,7 @@ The RightScale GoGrid gem has been designed to provide a robust interface to GoG
 
 == LICENSE:
 
-Copyright (c) 2007-2008 RightScale, Inc. 
+Copyright (c) 2007-2009 RightScale, Inc. 
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
